@@ -1,0 +1,105 @@
+---
+title: "Module 3 Quarto Project Myrie"
+author: "Joseph Myrie"
+date: "2024-06-10"
+format: pdf
+params:
+  data-path: "/Users/myriej01/Downloads/cohort_1_.csv"
+code-annotations: hover
+---
+
+## Introduction
+
+This cohort data set has 5 variables including: smoking status, gender, age, cardiac status, and then cost. One could imagine this to be a cohort of patients that was assess for cardiac morbidity and then followed to see what their yearly healthcare expenditures were. We could make the assumption that costs will be higher for those with a positive smoking and cardiac status, also for those who are male, and for those who are older. Unclear if these are yearly costs. Also unclear if this is what patients owed or if this overall healthcare costs for the individual patients.
+
+Overall this dataset is pretty simple with only 5 variables, but there does not seem to be alot of missing data which is great. There is also are large patient sample which is also great about 5000 patients.
+
+```{r}
+library(readr)                                 # <1>   
+cohort_1_ <- read_csv("C:/Users/myriej01/Downloads/cohort (1).csv")                                               # <1>
+```
+
+1.  Imported cohort CSV
+
+## Methods
+
+First, we tried to see what relationships there were in the dataset by producing some scatter plots of the variables. First, we assessed the relationship of Age vs Cost by Cardiac status.
+
+```{r}
+
+library(ggplot2) # <1>
+ggplot(cohort_1_, aes(x = cohort_1_$age, y = cohort_1_$cost, color = cohort_1_$cardiac)) +
+  geom_point() +
+  labs(title = "Scatterplot of Age vs. Cost by Cardiac Status", x = "Age", y = "Cost")
+```
+
+1.  Created a scatterplot of Age vs Cost by Cardiac Status
+
+\<Age vs Cost by cardiac status\>
+
+We next made a scatterplot of Age vs Cost by Smoking status.
+
+```{r}
+ggplot(cohort_1_, aes(x = cohort_1_$age, y = cohort_1_$cost, color = cohort_1_$smoke)) +
+  geom_point() +
+  labs(title = "Scatterplot of Age vs. Cost by Smoking Status", x = "Age", y = "Cost") # <1>
+
+```
+
+1.  Scatter plot of Age vs Cost by Smoking Status
+
+\<Smoking Status vs Cost by Cardiac status\>
+
+We next looked at the relationship between smoking status and cost by cardiac status.
+
+```{r}
+ggplot(cohort_1_, aes(x = cohort_1_$smoke, y = cohort_1_$cost, color = cohort_1_$cardiac)) +
+  geom_point() +
+  labs(title = "Scatterplot of Smoking Status vs. Cost by Cardiac Status", x = "Smoking Status", y = "Cost") # <1>
+```
+
+1. Scatterplot of Smokign Status vs Cost by Cardiac Status
+
+## Results
+
+<Summary Statistics>
+
+First we have a table of the summary statics below:
+
+```{r}
+library(gtsummary)
+tbl_summary(cohort_1_, statistic = list(
+    all_continuous() ~ "{mean} ({sd}) [{min}, {max}]")) # <1>
+
+
+
+```
+
+1.  Used gtsummary to create a summary table for our 5 variables.
+
+Overall we have a dataset with 5,000 patient entries. The dataset was relatively balanced in terms of gender with 49% female and 51% male. About 10% of the cohort were smokers and about 3.8% of the cohort had a cardiac history. The average age was 41. And the Average cost per patient was \$9,672.
+
+</Summary>
+
+Next we ran a linear model on the data looking at relationship between cardiac status, gender, and age with cost.
+
+```{r}
+model <- lm(cohort_1_$cost ~ cohort_1_$cardiac + cohort_1_$female + cohort_1_$age + cohort_1_$smoke, data = cohort_1_)
+summary(model) #<1>
+
+plot(model, 1)
+plot(model, 2)
+plot(model, 3)
+
+
+
+
+```
+
+1.  Used lm function to model the fucntion to see how variables are related and to create a residuals vs fitted,a normal q-q, and a scale location plot.
+
+\<linear model of cardiac status, gender, and age by cost\>
+
+When we look estimates for our variables we see there female status is correlated with lower cost. Cardiac status is strongly associated with increased costs, and age is associated with increased costs, but not as much as cardiac status. Our residuals versus fitted plot looks pretty good. Data points are spread out pretty uniformly until cost get to about 10,250.
+
+Link to github: <https://github.com/jmyrie312/Assignment7>

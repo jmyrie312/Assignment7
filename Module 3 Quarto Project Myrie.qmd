@@ -35,9 +35,9 @@ ggplot(cohort_1_, aes(x = cohort_1_$age, y = cohort_1_$cost, color = cohort_1_$c
 
 1.  Created a scatterplot of Age vs Cost by Cardiac Status. We see that there is a positive correlation between Cost, Age, and Cardiac Status. As Age increases so does costs and at any age those with positive Cardiac status have higher costs.
 
-    display math: $$Cost=xAge + zCardiacStatus+ C$$
+display math: $$Cost=xAge + zCardiacStatus+ C$$
 
-2.  \<Age vs Cost by cardiac status\>
+\<Age vs Cost by cardiac status\>
 
 We next made a scatterplot of Age vs Cost by Smoking status.
 

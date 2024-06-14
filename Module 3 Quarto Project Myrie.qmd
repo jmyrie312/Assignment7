@@ -33,9 +33,11 @@ ggplot(cohort_1_, aes(x = cohort_1_$age, y = cohort_1_$cost, color = cohort_1_$c
   labs(title = "Scatterplot of Age vs. Cost by Cardiac Status", x = "Age", y = "Cost")
 ```
 
-1.  Created a scatterplot of Age vs Cost by Cardiac Status
+1.  Created a scatterplot of Age vs Cost by Cardiac Status. We see that there is a positive correlation between Cost, Age, and Cardiac Status. As Age increases so does costs and at any age those with positive Cardiac status have higher costs.
 
-\<Age vs Cost by cardiac status\>
+    display math: $$Cost=xAge + zCardiacStatus+ C$$
+
+2.  \<Age vs Cost by cardiac status\>
 
 We next made a scatterplot of Age vs Cost by Smoking status.
 
@@ -46,19 +48,24 @@ ggplot(cohort_1_, aes(x = cohort_1_$age, y = cohort_1_$cost, color = cohort_1_$s
 
 ```
 
-1.  Scatter plot of Age vs Cost by Smoking Status
+1.  Scatter plot of Age vs Cost by Smoking Status. We see that there is a positive correlation between Cost, Age, and Smoking Status. Similar to what we saw between Cost, Age, and Cardiac Status.
+
+display math: $$Cost=xAge+zSmokingStatus+C$$
 
 \<Smoking Status vs Cost by Cardiac status\>
 
 We next looked at the relationship between smoking status and cost by cardiac status.
 
 ```{r}
+library(ggplot2)
 ggplot(cohort_1_, aes(x = cohort_1_$smoke, y = cohort_1_$cost, color = cohort_1_$cardiac)) +
   geom_point() +
   labs(title = "Scatterplot of Smoking Status vs. Cost by Cardiac Status", x = "Smoking Status", y = "Cost") # <1>
 ```
 
-1. Scatterplot of Smokign Status vs Cost by Cardiac Status
+1.  Scatterplot of Smoking Status vs Cost by Cardiac Status. We see higher costs with those with Smoking Status. We also see higher costs for cardiac status. Since smoking status is binomal we have two lines as seen above.
+
+display math: $$Cost=xSmokingStatus+zCardiacStatus$$
 
 ## Results
 
@@ -97,6 +104,8 @@ plot(model, 3)
 ```
 
 1.  Used lm function to model the fucntion to see how variables are related and to create a residuals vs fitted,a normal q-q, and a scale location plot.
+
+display math: $$Cost=aCardiacStatus+bGender+cAge+dSmokingStatus+ C$$
 
 \<linear model of cardiac status, gender, and age by cost\>
 
